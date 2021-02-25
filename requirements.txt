@@ -1,4 +1,5 @@
-flask
+sanic
+Jinja2
 typer
 requests
 black

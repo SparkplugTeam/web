@@ -1,3 +1,4 @@
 fastapi[all]
 typer
 Jinja2
+grequests

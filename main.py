@@ -1,12 +1,16 @@
+# Python modules
 import os
 
+# Pip modules
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from jinja2 import Template
+
+# our fuckery
 from User import User
 from Post import Post
 from Category import Category
-import os
+
 
 def get_template(name):
     with open("templates" + os.path.sep + name) as f:

@@ -1,4 +1,4 @@
-from User import User
+from datatypes.User import User
 
 
 class Category:

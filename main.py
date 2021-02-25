@@ -7,9 +7,9 @@ from fastapi.responses import HTMLResponse
 from jinja2 import Template
 
 # our fuckery
-from User import User
-from Post import Post
-from Category import Category
+from datatypes.User import User
+from datatypes.Post import Post
+from datatypes.Category import Category
 
 
 def get_template(name):

@@ -1,5 +1,5 @@
-from User import User
-from Category import Category
+from datatypes.User import User
+from datatypes.Category import Category
 
 
 class Post:

@@ -1,5 +1,4 @@
-fastapi[all]
+flask
 typer
-Jinja2
-grequests
+requests
 black

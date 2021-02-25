@@ -2,29 +2,37 @@
 import os
 
 # Pip modules
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
-from jinja2 import Template
+from flask import *
+import requests
 
 # our fuckery
 from datatypes.User import User
 from datatypes.Post import Post
 from datatypes.Category import Category
 
+JSERV_URL = "http://localhost:4040"
+API_KEY = "SparkPlug"
+DB_NAME = "SparkPlug"
 
-def get_template(name):
-    with open("templates" + os.path.sep + name) as f:
-        return f.read()
+JSERV_HEADERS = {"x-api-key": API_KEY}
 
-
-main = Template(get_template("page.html"))
-
-app = FastAPI(default_response_class=HTMLResponse)
+app = Flask(__name__)
 
 
-@app.get("/")
-async def root():
+@app.route("/")
+def root():
     u = User("Yeet", "yoink", "hee@hoo.com")
     c = Category("aa", "aaaaaaaa", u)
     p = Post(u, c, "fuck", "shitass")
-    return main.render(page="Home", content=p.renderPost())
+    return render_template("page.html", page="Home", content=p.renderPost())
+
+
+@app.route("/jserv/new")
+def newobj():
+    nid = requests.request(
+        "GET", JSERV_URL + "/query/newId?q=" + DB_NAME, headers=JSERV_HEADERS, data={}
+    ).text
+    return nid
+
+
+app.run(host="0.0.0.0", port=8000, debug=True)

@@ -14,4 +14,5 @@ app = FastAPI(default_response_class=HTMLResponse)
 
 @app.get("/")
 async def root():
+    print("heehoo")
     return main.render(page="Home", content="Heeho")

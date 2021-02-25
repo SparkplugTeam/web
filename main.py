@@ -1,5 +1,5 @@
 # Python modules
-import os
+import os, json
 
 # Pip modules
 from sanic import Sanic
@@ -28,21 +28,26 @@ JSERV_HEADERS = {"x-api-key": API_KEY}
 
 app = Sanic(name=__name__)
 
+u = User("Yeet", "yoink", "hee@hoo.com")
+c = Category("aa", "aaaaaaaa", u)
+p = Post(u, c, "fuck", "shitass")
+
 
 @app.route("/")
 async def root(request):
-    u = User("Yeet", "yoink", "hee@hoo.com")
-    c = Category("aa", "aaaaaaaa", u)
-    p = Post(u, c, "fuck", "shitass")
     return response.html(main_template.render(page="Home", content=p.renderPost()))
 
-
+# This bork
 @app.route("/jserv/new")
 async def newobj(request):
     nid = requests.request(
         "GET", JSERV_URL + "/query/newId?q=" + DB_NAME, headers=JSERV_HEADERS, data={}
     ).text
-    return response.text(nid)
+    print("ID is: " + nid)
+    # Gets sad
+    obj = json.dumps(p.__dict__)
+    print(str(obj))
+    return response.text(obj)
 
 
 if __name__ == "__main__":
